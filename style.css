@@ -1,5 +1,5 @@
 /*
-Program: style.css 
+Program: style.css (HW4)
 Author: Gabriela Cortes
 Description: Basic styles + fixed header/footer
 */
@@ -17,12 +17,21 @@ body {
   left: 0;
   width: 100%;
   background: #e6f0fa;
-  padding: 10px;
+  padding: 10px 16px;
   border-bottom: 1px solid #ccc;
   z-index: 1000;
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+#fixedHeader .logo-text {
+  font-size: 20px;
+}
+
+#welcomeBox {
+  font-size: 16px;
+  text-align: right;
 }
 
 /* FIXED FOOTER */
@@ -38,31 +47,66 @@ body {
   z-index: 1000;
 }
 
+/* Spacers so content is not hidden under header/footer */
+.spacer-header {
+  height: 80px;
+}
+
+.spacer-footer {
+  height: 80px;
+}
+
+/* Main content box */
 .wrap {
-  width: 90%;
-  margin: auto;
-  background: white;
-  padding: 20px;
-  margin-top: 30px;
-  border-radius: 6px;
+  max-width: 900px;
+  margin: 15px auto;
+  background: #ffffff;
   border: 1px solid #cfd8e3;
+  border-radius: 6px;
+  padding: 20px 24px;
 }
 
-table {
+/* Form elements */
+form label {
+  display: block;
+  margin-top: 10px;
+  margin-bottom: 4px;
+  font-weight: bold;
+}
+
+input[type=text],
+input[type=email],
+select {
   width: 100%;
-}
-
-input, select {
+  max-width: 360px;
   padding: 6px;
-  width: 250px;
   border: 1px solid #888;
   border-radius: 4px;
+  box-sizing: border-box;
 }
 
+.remember-row {
+  font-weight: normal;
+  margin-bottom: 10px;
+}
+
+.conditions-box {
+  padding: 8px;
+  background: #f7f7f7;
+  border: 1px solid #ccc;
+  max-width: 360px;
+}
+
+.button-row {
+  margin-top: 16px;
+}
+
+/* Buttons */
 button {
-  padding: 8px 14px;
   background: #003366;
-  color: white;
+  color: #fff;
+  padding: 8px 14px;
+  margin-right: 8px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
