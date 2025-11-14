@@ -1,12 +1,11 @@
 /*
 Program: style.css (HW4)
 Author: Gabriela Cortes
-Description: Basic styles + fixed header/footer
 */
 
 body {
   font-family: Arial, sans-serif;
-  background: #f0f8ff;
+  background: #eef7ff;
   margin: 0;
 }
 
@@ -16,22 +15,17 @@ body {
   top: 0;
   left: 0;
   width: 100%;
-  background: #e6f0fa;
+  background: #dfefff;
   padding: 10px 16px;
   border-bottom: 1px solid #ccc;
-  z-index: 1000;
+  z-index: 999;
   display: flex;
-  align-items: center;
   justify-content: space-between;
-}
-
-#fixedHeader .logo-text {
   font-size: 20px;
 }
 
 #welcomeBox {
   font-size: 16px;
-  text-align: right;
 }
 
 /* FIXED FOOTER */
@@ -40,37 +34,35 @@ body {
   bottom: 0;
   left: 0;
   width: 100%;
-  background: #e6f0fa;
   padding: 10px;
+  background: #dfefff;
   border-top: 1px solid #ccc;
   text-align: center;
-  z-index: 1000;
+  z-index: 999;
 }
 
-/* Spacers so content is not hidden under header/footer */
+/* SPACERS */
 .spacer-header {
   height: 80px;
 }
-
 .spacer-footer {
   height: 80px;
 }
 
-/* Main content box */
+/* CONTENT BOXES */
 .wrap {
+  background: white;
   max-width: 900px;
-  margin: 15px auto;
-  background: #ffffff;
-  border: 1px solid #cfd8e3;
+  margin: 20px auto;
+  padding: 25px;
   border-radius: 6px;
-  padding: 20px 24px;
+  border: 1px solid #cfd8e3;
 }
 
-/* Form elements */
+/* FORM STYLING */
 form label {
   display: block;
-  margin-top: 10px;
-  margin-bottom: 4px;
+  margin-top: 12px;
   font-weight: bold;
 }
 
@@ -78,40 +70,33 @@ input[type=text],
 input[type=email],
 select {
   width: 100%;
-  max-width: 360px;
-  padding: 6px;
+  max-width: 400px;
+  padding: 8px;
+  margin-top: 4px;
   border: 1px solid #888;
   border-radius: 4px;
-  box-sizing: border-box;
-}
-
-.remember-row {
-  font-weight: normal;
-  margin-bottom: 10px;
 }
 
 .conditions-box {
-  padding: 8px;
+  padding: 10px;
   background: #f7f7f7;
   border: 1px solid #ccc;
-  max-width: 360px;
+  max-width: 400px;
 }
 
 .button-row {
-  margin-top: 16px;
+  margin-top: 20px;
 }
 
-/* Buttons */
 button {
+  padding: 10px 16px;
   background: #003366;
-  color: #fff;
-  padding: 8px 14px;
-  margin-right: 8px;
+  color: white;
   border: none;
   border-radius: 4px;
+  margin-right: 8px;
   cursor: pointer;
 }
-
 button:hover {
   background: #005599;
 }
