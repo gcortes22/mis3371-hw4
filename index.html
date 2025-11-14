@@ -1,1 +1,162 @@
+<!DOCTYPE html>
+<!--
+Program name: index.html (HW4)
+Author: Gabriela Cortes
+Date created: 11/13/2025
+Description: HW4 
+-->
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HW4 – Patient Registration</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <script>
+  
+    function getCookie(name) {
+      let c = document.cookie.split(";");
+      for (let i=0; i<c.length; i++) {
+        let part = c[i].trim();
+        if (part.startsWith(name + "=")) {
+          return part.substring(name.length + 1);
+        }
+      }
+      return "";
+    }
+
+    function setCookie(name, value, hours) {
+      let expires = "";
+      if (hours) {
+        let d = new Date();
+        d.setTime(d.getTime() + (hours*60*60*1000));
+        expires = "; expires=" + d.toUTCString();
+      }
+      document.cookie = name + "=" + value + expires + "; path=/";
+    }
+
+    function deleteCookie(name) {
+      document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    }
+
+   
+    document.addEventListener("DOMContentLoaded", function () {
+
+      let savedName = getCookie("firstname");
+      let welcomeBox = document.getElementById("welcomeBox");
+
+      if (savedName !== "") {
+        // Returning user
+        welcomeBox.innerHTML = "Welcome back, " + savedName + "!";
+
+        // Add dynamic checkbox to reset user
+        let div = document.createElement("div");
+        div.style.marginTop = "6px";
+        div.innerHTML = `
+          <label><input type="checkbox" id="notMe"> Not ${savedName}? Start as new user</label>
+        `;
+        welcomeBox.appendChild(div);
+
+        document.getElementById("notMe").onchange = function () {
+          if (this.checked) {
+            deleteCookie("firstname");
+            localStorage.clear();
+            location.reload();
+          }
+        };
+      } else {
+        welcomeBox.innerHTML = "Hello new user!";
+      }
+
+    });
+  </script>
+</head>
+
+<body>
+
+<!-- FIXED HEADER -->
+<div id="fixedHeader">
+  <img src="logo.png" width="50" style="vertical-align:middle;">
+  <span style="margin-left:8px; font-size:20px;"><b>Gaby Care Medical</b></span>
+
+  <div id="welcomeBox" style="float:right; margin-right:20px; font-size:18px;">
+   
+  </div>
+</div>
+
+
+<div style="height:90px;"></div>
+
+<!-- IFRAME -->
+<div style="margin:15px;">
+  <h3>Helpful Info (iFrame Example)</h3>
+  <iframe src="https://www.w3schools.com/js/js_cookies.asp"
+          width="100%" height="200"
+          style="border:1px solid #aaa;"></iframe>
+</div>
+
+<div class="wrap">
+
+  <!-- FORM -->
+  <form id="signup" action="thankyou.html">
+
+    <h2>Patient Registration Form</h2>
+
+    
+    <label><input type="checkbox" id="rememberMe" checked> Remember Me</label>
+
+    <table cellpadding="6">
+
+      <tr>
+        <td>First Name</td>
+        <td><input type="text" id="firstname"></td>
+      </tr>
+
+      <tr>
+        <td>Last Name</td>
+        <td><input type="text" id="lastname"></td>
+      </tr>
+
+      <tr>
+        <td>Email</td>
+        <td><input type="email" id="email"></td>
+      </tr>
+
+      <tr>
+        <td>State</td>
+        <td>
+          <select id="state">
+            <option value="">Loading states...</option>
+          </select>
+        </td>
+      </tr>
+
+      <tr>
+        <td>Conditions</td>
+        <td id="conditionsBox">Loading conditions...</td>
+      </tr>
+
+    </table>
+
+    <br>
+    <button type="button" id="btnSave">Save</button>
+    <button type="reset" id="btnReset">Clear</button>
+    <button type="submit">Submit</button>
+
+  </form>
+</div>
+
+
+<div style="height:120px;"></div>
+
+<!-- FIXED FOOTER -->
+<div id="fixedFooter">
+  © 2025 Gaby Care Medical – Homework 4  
+</div>
+
+<script src="app.js"></script>
+
+</body>
+</html>
 
