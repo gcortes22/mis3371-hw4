@@ -1,102 +1,85 @@
-/*
-Program: style.css (HW4)
-Author: Gabriela Cortes
-*/
-
+/* Basic page style */
 body {
   font-family: Arial, sans-serif;
-  background: #eef7ff;
+  background: #e9f2fb;
   margin: 0;
 }
 
-/* FIXED HEADER */
+/* Header */
 #fixedHeader {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  background: #dfefff;
-  padding: 10px 16px;
-  border-bottom: 1px solid #ccc;
-  z-index: 999;
-  display: flex;
-  justify-content: space-between;
-  font-size: 20px;
-}
-
-#welcomeBox {
-  font-size: 16px;
-}
-
-/* FIXED FOOTER */
-#fixedFooter {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  padding: 10px;
-  background: #dfefff;
-  border-top: 1px solid #ccc;
-  text-align: center;
-  z-index: 999;
-}
-
-/* SPACERS */
-.spacer-header {
-  height: 80px;
-}
-.spacer-footer {
-  height: 80px;
-}
-
-/* CONTENT BOXES */
-.wrap {
-  background: white;
-  max-width: 900px;
-  margin: 20px auto;
-  padding: 25px;
-  border-radius: 6px;
-  border: 1px solid #cfd8e3;
-}
-
-/* FORM STYLING */
-form label {
-  display: block;
-  margin-top: 12px;
+  background: #dfeeff;
+  padding: 15px;
+  font-size: 22px;
   font-weight: bold;
+  border-bottom: 1px solid #b6c9dd;
 }
 
-input[type=text],
-input[type=email],
-select {
+/* Main form box */
+.wrap {
+  width: 900px;
+  margin: 40px auto;
+  background: white;
+  padding: 25px;
+  border-radius: 8px;
+  border: 1px solid #c6d4e1;
+}
+
+/* Section title */
+h2 {
+  margin-top: 0;
+  font-size: 26px;
+  color: #123a6f;
+}
+
+/* Two-column layout */
+.form-row {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 15px;
+}
+
+.form-col {
+  flex: 1;
+}
+
+/* Inputs */
+input, select, textarea {
   width: 100%;
-  max-width: 400px;
   padding: 8px;
-  margin-top: 4px;
-  border: 1px solid #888;
-  border-radius: 4px;
+  border: 1px solid #88a2c0;
+  border-radius: 5px;
 }
 
-.conditions-box {
-  padding: 10px;
-  background: #f7f7f7;
-  border: 1px solid #ccc;
-  max-width: 400px;
+/* Conditions box */
+#conditionsBox {
+  background: #f5f8fc;
+  border: 1px solid #bcccdd;
+  padding: 15px;
+  border-radius: 6px;
+  max-height: 240px;
+  overflow-y: auto;
 }
 
-.button-row {
-  margin-top: 20px;
-}
-
+/* Buttons */
 button {
-  padding: 10px 16px;
-  background: #003366;
+  padding: 10px 20px;
+  background: #003b7a;
   color: white;
   border: none;
-  border-radius: 4px;
-  margin-right: 8px;
+  border-radius: 5px;
+  margin-right: 10px;
   cursor: pointer;
 }
+
 button:hover {
-  background: #005599;
+  background: #0050a8;
+}
+
+/* Footer */
+#fixedFooter {
+  background: #dfeeff;
+  text-align: center;
+  padding: 10px;
+  border-top: 1px solid #b6c9dd;
+  margin-top: 40px;
 }
