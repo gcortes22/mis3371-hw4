@@ -3,7 +3,7 @@
 Program name: index.html (HW4)
 Author: Gabriela Cortes
 Date created: 11/13/2025
-Description: HW4 – Fetch, iFrame, Cookies, Local Storage
+Description: HW4 – Fetch, Cookies, Local Storage, iFrame
 -->
 <html lang="en">
 <head>
@@ -14,87 +14,159 @@ Description: HW4 – Fetch, iFrame, Cookies, Local Storage
 
 <body>
 
-  <!-- FIXED HEADER -->
-  <div id="fixedHeader">
-    <span class="logo-text"><b>Gaby Care Medical</b></span>
-    <div id="welcomeBox"></div>
-  </div>
+<!-- FIXED HEADER -->
+<div id="fixedHeader">
+  <span class="logo-text"><b>Gaby Care Medical</b></span>
+  <div id="welcomeBox"></div>
+</div>
 
-  <div class="spacer-header"></div>
+<div class="spacer-header"></div>
 
-  <!-- IFRAME SECTION -->
-  <div class="wrap">
-    <h3>Helpful Info (iFrame Example)</h3>
+<!-- IFRAME SECTION -->
+<div class="wrap">
+  <h3>Helpful Info (iFrame Example)</h3>
+  <iframe src="help.html" width="100%" height="200"
+          style="border:1px solid #ccc; background:white;"></iframe>
+</div>
 
-    <iframe src="help.html" width="100%" height="200"
-      style="border:1px solid #ccc; background:white;">
-    </iframe>
-  </div>
+<!-- MAIN FORM -->
+<div class="wrap">
+  <h2>Patient Registration Form</h2>
 
-  <!-- MAIN FORM -->
-  <div class="wrap">
-    <h2>Patient Registration Form</h2>
+  <form id="signup" action="thankyou.html">
 
-    <form id="signup" action="thankyou.html">
+    <label>
+      <input type="checkbox" id="rememberMe" checked> Remember Me
+    </label>
+    <br><br>
 
-      <!-- Remember Me -->
-      <label>
-        <input type="checkbox" id="rememberMe" checked> Remember Me
-      </label>
-      <br><br>
-
-      <!-- ROW 1 -->
-      <div class="form-row">
-        <div class="form-col">
-          <label>First Name</label>
-          <input type="text" id="firstname" placeholder="Enter first name">
-        </div>
-
-        <div class="form-col">
-          <label>Last Name</label>
-          <input type="text" id="lastname" placeholder="Enter last name">
-        </div>
+    <!-- ROW 1 -->
+    <div class="form-row">
+      <div class="form-col">
+        <label>First Name</label>
+        <input type="text" id="firstname" placeholder="Enter first name">
       </div>
 
-      <!-- ROW 2 -->
-      <div class="form-row">
-        <div class="form-col">
-          <label>Email</label>
-          <input type="email" id="email" placeholder="Enter your email">
-        </div>
-
-        <div class="form-col">
-          <label>State</label>
-          <select id="state">
-            <option>Loading states...</option>
-          </select>
-        </div>
+      <div class="form-col">
+        <label>Middle Initial</label>
+        <input type="text" id="middle" maxlength="1">
       </div>
 
-      <!-- CONDITIONS -->
-      <label>Conditions</label>
-      <div id="conditionsBox" class="conditions-box">
-        Loading conditions...
+      <div class="form-col">
+        <label>Last Name</label>
+        <input type="text" id="lastname" placeholder="Enter last name">
+      </div>
+    </div>
+
+    <!-- ROW 2 -->
+    <div class="form-row">
+      <div class="form-col">
+        <label>Date of Birth</label>
+        <input type="date" id="dob">
       </div>
 
-      <!-- BUTTONS -->
-      <div class="button-row">
-        <button type="button" id="btnSave">Save</button>
-        <button type="reset" id="btnReset">Clear</button>
-        <button type="submit">Submit</button>
+      <div class="form-col">
+        <label>Move-in / Travel Date</label>
+        <input type="date" id="travel">
       </div>
 
-    </form>
-  </div>
+      <div class="form-col">
+        <label>SSN / ID (hidden)</label>
+        <input type="password" id="ssn" placeholder="123-45-6789">
+      </div>
+    </div>
 
-  <div class="spacer-footer"></div>
+    <!-- ROW 3 -->
+    <div class="form-row">
+      <div class="form-col">
+        <label>Email</label>
+        <input type="email" id="email" placeholder="Enter your email">
+      </div>
 
-  <!-- FIXED FOOTER -->
-  <div id="fixedFooter">
-    © 2025 Gaby Care Medical – Homework 4
-  </div>
+      <div class="form-col">
+        <label>Phone</label>
+        <input type="text" id="phone" placeholder="000-000-0000">
+      </div>
+    </div>
 
-  <script src="app.js"></script>
+    <!-- ROW 4 -->
+    <div class="form-row">
+      <div class="form-col">
+        <label>Address 1</label>
+        <input type="text" id="addr1">
+      </div>
+
+      <div class="form-col">
+        <label>Address 2</label>
+        <input type="text" id="addr2">
+      </div>
+    </div>
+
+    <!-- ROW 5 -->
+    <div class="form-row">
+      <div class="form-col">
+        <label>City</label>
+        <input type="text" id="city">
+      </div>
+
+      <div class="form-col">
+        <label>State</label>
+        <select id="state"><option>Loading states...</option></select>
+      </div>
+
+      <div class="form-col">
+        <label>Zip</label>
+        <input type="text" id="zip" maxlength="5">
+      </div>
+    </div>
+
+    <!-- CONDITIONS FETCHED -->
+    <label><b>Conditions</b></label>
+    <div id="conditionsBox" class="conditions-box">Loading conditions...</div>
+
+    <!-- HOUSING -->
+    <label><b>Housing</b></label>
+    <div class="radio-row">
+      <label><input type="radio" name="housing" value="Own"> Own</label>
+      <label><input type="radio" name="housing" value="Rent"> Rent</label>
+      <label><input type="radio" name="housing" value="Unsure"> Unsure</label>
+    </div>
+
+    <!-- VACCINATED -->
+    <label><b>Vaccinated?</b></label>
+    <div class="radio-row">
+      <label><input type="radio" name="vacc" value="Yes"> Yes</label>
+      <label><input type="radio" name="vacc" value="No"> No</label>
+      <label><input type="radio" name="vacc" value="Unsure"> Unsure</label>
+    </div>
+
+    <!-- SALARY -->
+    <label><b>Desired Salary</b></label>
+    <input type="range" id="salary" min="30000" max="200000" step="1000">
+    <span id="salaryOut">$50,000</span>
+
+    <!-- SYMPTOMS -->
+    <label><b>Symptoms</b></label>
+    <textarea id="symptoms" placeholder="Describe symptoms (no quotes)…"></textarea>
+
+    <!-- BUTTONS -->
+    <div class="button-row">
+      <button type="button" id="btnSave">Save</button>
+      <button type="reset" id="btnReset">Clear</button>
+      <button type="submit">Submit</button>
+    </div>
+
+  </form>
+</div>
+
+<div class="spacer-footer"></div>
+
+<!-- FIXED FOOTER -->
+<div id="fixedFooter">
+  © 2025 Gaby Care Medical – Homework 4
+</div>
+
+<script src="app.js"></script>
+
 </body>
 </html>
-
