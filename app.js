@@ -5,15 +5,34 @@ Date created: 11/13/2025
 Description: JavaScript for HW4 
 */
 
+/* ---------------------------------------------------------
+   COOKIE FUNCTIONS
+---------------------------------------------------------- */
+function setCookie(name, value, hours) {
+  let expires = "";
+  if (hours) {
+    let d = new Date();
+    d.setTime(d.getTime() + (hours * 60 * 60 * 1000));
+    expires = "; expires=" + d.toUTCString();
+  }
+  document.cookie = name + "=" + value + expires + "; path=/";
+}
 
-function $(id) { return document.getElementById(id); }
+function deleteCookie(name) {
+  document.cookie =
+    name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+}
 
-
+/* Shortcut */
+function $(id) {
+  return document.getElementById(id);
+}
 
 
 async function loadStates() {
   try {
-    let url = "https://raw.githubusercontent.com/gcortes22/mis3371-hw4/main/states.txt";
+    let url =
+      "https://raw.githubusercontent.com/gcortes22/mis3371-hw4/main/states.txt";
     let r = await fetch(url);
     let txt = await r.text();
     let lines = txt.split("\n");
@@ -21,7 +40,7 @@ async function loadStates() {
     let stateSelect = $("state");
     stateSelect.innerHTML = "<option value=''>Choose state</option>";
 
-    lines.forEach(s => {
+    lines.forEach((s) => {
       s = s.trim();
       if (s.length > 0) {
         let opt = document.createElement("option");
@@ -30,7 +49,6 @@ async function loadStates() {
         stateSelect.appendChild(opt);
       }
     });
-
   } catch (err) {
     $("state").innerHTML = "<option>Error loading states</option>";
   }
@@ -39,12 +57,13 @@ async function loadStates() {
 
 async function loadConditions() {
   try {
-    let url = "https://raw.githubusercontent.com/gcortes22/mis3371-hw4/main/conditions.txt";
+    let url =
+      "https://raw.githubusercontent.com/gcortes22/mis3371-hw4/main/conditions.txt";
     let r = await fetch(url);
     let txt = await r.text();
 
     let out = "";
-    txt.split("\n").forEach(c => {
+    txt.split("\n").forEach((c) => {
       c = c.trim();
       if (c.length > 0) {
         out += `<label><input type="checkbox" class="cond" value="${c}"> ${c}</label><br>`;
@@ -52,9 +71,8 @@ async function loadConditions() {
     });
 
     $("conditionsBox").innerHTML = out;
-
   } catch (err) {
-    $("conditionsBox").innerHTML = "Error loading conditions.";
+    $("conditionsBox").innerHTML = "Error loading conditions";
   }
 }
 
@@ -65,10 +83,10 @@ function saveAll() {
     lastname: $("lastname").value,
     email: $("email").value,
     state: $("state").value,
-    conditions: []
+    conditions: [],
   };
 
-  document.querySelectorAll(".cond").forEach(ch => {
+  document.querySelectorAll(".cond").forEach((ch) => {
     if (ch.checked) data.conditions.push(ch.value);
   });
 
@@ -87,34 +105,28 @@ function loadAll() {
   $("email").value = data.email || "";
   $("state").value = data.state || "";
 
-  
-  if (data.conditions) {
-    document.querySelectorAll(".cond").forEach(ch => {
-      if (data.conditions.includes(ch.value)) ch.checked = true;
-    });
-  }
+  document.querySelectorAll(".cond").forEach((ch) => {
+    if (data.conditions.includes(ch.value)) ch.checked = true;
+  });
 }
 
 
-
 document.addEventListener("DOMContentLoaded", function () {
-
   loadStates();
   loadConditions();
 
- 
+  
   if (document.cookie.includes("firstname=")) {
-    setTimeout(loadAll, 400); 
+    setTimeout(loadAll, 500);
   }
 
-
+ 
   $("btnSave").onclick = function () {
     saveAll();
 
-
     if ($("rememberMe").checked) {
       let fn = $("firstname").value.trim();
-      if (fn !== "") setCookie("firstname", fn, 48); // 48 hrs
+      if (fn !== "") setCookie("firstname", fn, 48); // Save cookie for 48 hours
     } else {
       deleteCookie("firstname");
       localStorage.clear();
@@ -123,10 +135,8 @@ document.addEventListener("DOMContentLoaded", function () {
     alert("Saved!");
   };
 
-
+  
   $("btnReset").onclick = function () {
     localStorage.clear();
   };
-
 });
-
