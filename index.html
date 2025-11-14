@@ -37,29 +37,47 @@ Description: HW4 – Fetch, iFrame, Cookies, Local Storage
 
     <form id="signup" action="thankyou.html">
 
-      <label class="remember-row">
+      <!-- Remember Me -->
+      <label>
         <input type="checkbox" id="rememberMe" checked> Remember Me
       </label>
+      <br><br>
 
-      <label for="firstname">First Name</label>
-      <input type="text" id="firstname">
+      <!-- ROW 1 -->
+      <div class="form-row">
+        <div class="form-col">
+          <label>First Name</label>
+          <input type="text" id="firstname" placeholder="Enter first name">
+        </div>
 
-      <label for="lastname">Last Name</label>
-      <input type="text" id="lastname">
+        <div class="form-col">
+          <label>Last Name</label>
+          <input type="text" id="lastname" placeholder="Enter last name">
+        </div>
+      </div>
 
-      <label for="email">Email</label>
-      <input type="email" id="email">
+      <!-- ROW 2 -->
+      <div class="form-row">
+        <div class="form-col">
+          <label>Email</label>
+          <input type="email" id="email" placeholder="Enter your email">
+        </div>
 
-      <label for="state">State</label>
-      <select id="state">
-        <option>Loading states...</option>
-      </select>
+        <div class="form-col">
+          <label>State</label>
+          <select id="state">
+            <option>Loading states...</option>
+          </select>
+        </div>
+      </div>
 
+      <!-- CONDITIONS -->
       <label>Conditions</label>
       <div id="conditionsBox" class="conditions-box">
         Loading conditions...
       </div>
 
+      <!-- BUTTONS -->
       <div class="button-row">
         <button type="button" id="btnSave">Save</button>
         <button type="reset" id="btnReset">Clear</button>
@@ -77,6 +95,6 @@ Description: HW4 – Fetch, iFrame, Cookies, Local Storage
   </div>
 
   <script src="app.js"></script>
-
 </body>
 </html>
+
