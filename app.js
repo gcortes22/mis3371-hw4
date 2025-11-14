@@ -1,19 +1,19 @@
 /*
-Program name: app.js 
+Program name: app.js (HW4)
 Author: Gabriela Cortes
 Date created: 11/13/2025
 Description: JavaScript for HW4 – Fetch, Cookies, Local Storage
 */
 
-
+/* ---------- helper: get element by id ---------- */
 function $(id) { return document.getElementById(id); }
 
-/* ---------------- COOKIE HELPERS ---------------- */
+/* ---------- COOKIE FUNCTIONS ---------- */
 function getCookie(name) {
-  let parts = document.cookie.split(";");
-  for (let i = 0; i < parts.length; i++) {
-    let c = parts[i].trim();
-    if (c.startsWith(name + "=")) {
+  var parts = document.cookie.split(";");
+  for (var i = 0; i < parts.length; i++) {
+    var c = parts[i].trim();
+    if (c.indexOf(name + "=") === 0) {
       return c.substring(name.length + 1);
     }
   }
@@ -21,9 +21,9 @@ function getCookie(name) {
 }
 
 function setCookie(name, value, hours) {
-  let expires = "";
+  var expires = "";
   if (hours) {
-    let d = new Date();
+    var d = new Date();
     d.setTime(d.getTime() + (hours * 60 * 60 * 1000));
     expires = "; expires=" + d.toUTCString();
   }
@@ -34,21 +34,20 @@ function deleteCookie(name) {
   document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 }
 
-/* ---------------- FETCH FUNCTIONS ---------------- */
-// read states.txt with Fetch API
+/* ---------- FETCH FUNCTIONS ---------- */
+// load state list from states.txt
 async function loadStates() {
   try {
-    let r = await fetch("states.txt");
-    let txt = await r.text();
-    let lines = txt.split("\n");
-
-    let sel = $("state");
+    var r = await fetch("states.txt");
+    var txt = await r.text();
+    var lines = txt.split("\n");
+    var sel = $("state");
     sel.innerHTML = "<option value=''>Choose state</option>";
 
     lines.forEach(function (s) {
       s = s.trim();
       if (s.length > 0) {
-        let opt = document.createElement("option");
+        var opt = document.createElement("option");
         opt.value = s;
         opt.textContent = s;
         sel.appendChild(opt);
@@ -59,12 +58,12 @@ async function loadStates() {
   }
 }
 
-
+// load conditions from conditions.txt
 async function loadConditions() {
   try {
-    let r = await fetch("conditions.txt");
-    let txt = await r.text();
-    let out = "";
+    var r = await fetch("conditions.txt");
+    var txt = await r.text();
+    var out = "";
 
     txt.split("\n").forEach(function (c) {
       c = c.trim();
@@ -76,95 +75,98 @@ async function loadConditions() {
 
     $("conditionsBox").innerHTML = out;
   } catch (e) {
-    $("conditionsBox").innerHTML = "Error loading conditions";
+    $("conditionsBox").innerHTML = "Error loading conditions.";
   }
 }
 
-/* ---------------- LOCAL STORAGE ---------------- */
+/* ---------- LOCAL STORAGE ---------- */
 function saveAll() {
-  let data = {
+  if (!$("rememberMe").checked) {
+    // if user does NOT want to be remembered, do not store anything
+    localStorage.removeItem("formData");
+    return;
+  }
+
+  var data = {
     firstname: $("firstname").value,
-    lastname: $("lastname").value,
-    email: $("email").value,
-    state: $("state").value,
+    lastname:  $("lastname").value,
+    email:     $("email").value,
+    state:     $("state").value,
     conditions: []
   };
 
-  document.querySelectorAll(".cond").forEach(function (ch) {
-    if (ch.checked) data.conditions.push(ch.value);
-  });
+  var conds = document.querySelectorAll(".cond");
+  for (var i = 0; i < conds.length; i++) {
+    if (conds[i].checked) data.conditions.push(conds[i].value);
+  }
 
   localStorage.setItem("formData", JSON.stringify(data));
 }
 
 function loadAll() {
-  let saved = localStorage.getItem("formData");
+  var saved = localStorage.getItem("formData");
   if (!saved) return;
 
-  let data = JSON.parse(saved);
+  var data = JSON.parse(saved);
 
   $("firstname").value = data.firstname || "";
   $("lastname").value  = data.lastname || "";
   $("email").value     = data.email || "";
   $("state").value     = data.state || "";
 
-  document.querySelectorAll(".cond").forEach(function (ch) {
-    ch.checked = data.conditions && data.conditions.indexOf(ch.value) !== -1;
-  });
+  // check conditions
+  var conds = document.querySelectorAll(".cond");
+  for (var i = 0; i < conds.length; i++) {
+    conds[i].checked = data.conditions &&
+                       data.conditions.indexOf(conds[i].value) !== -1;
+  }
 }
 
-/* ---------------- WELCOME HEADER ---------------- */
+/* ---------- WELCOME HEADER ---------- */
 function setupWelcome() {
-  let box = $("welcomeBox");
-  let name = getCookie("firstname");
+  var box = $("welcomeBox");
+  var name = getCookie("firstname");
 
   if (name) {
-    box.innerHTML = "Welcome back, " + name + "!";
+    box.innerHTML = "Welcome back, " + name +
+                    '!<br><label><input type="checkbox" id="notMe"> Not ' +
+                    name + '? Start as new user</label>';
 
-    let div = document.createElement("div");
-    div.style.marginTop = "6px";
-    div.innerHTML =
-      '<label><input type="checkbox" id="notMe"> Not ' +
-      name + '? Start as new user</label>';
-    box.appendChild(div);
-
-    $("notMe").onchange = function () {
-      deleteCookie("firstname");
-      localStorage.clear();
-      location.reload();
-    };
+    var notBox = $("notMe");
+    if (notBox) {
+      notBox.onchange = function () {
+        deleteCookie("firstname");
+        localStorage.clear();
+        location.reload();
+      };
+    }
   } else {
     box.textContent = "Hello new user!";
   }
 }
 
-/* ---------------- PAGE SETUP ---------------- */
+/* ---------- PAGE SETUP ---------- */
 document.addEventListener("DOMContentLoaded", function () {
 
-  setupWelcome();   
-  loadStates();     
-  loadConditions(); 
+  setupWelcome();
+  loadStates();
+  loadConditions();
 
-  
-  if (getCookie("firstname")) {
-    setTimeout(loadAll, 400);
-  }
+  // after conditions are loaded, restore any localStorage data
+  setTimeout(function () {
+    if (getCookie("firstname")) {
+      loadAll();
 
-  $("btnSave").onclick = function () {
-    saveAll();
-
-    if ($("rememberMe").checked) {
-      let fn = $("firstname").value.trim();
-      if (fn !== "") setCookie("firstname", fn, 48); // 48 hours
-    } else {
-      deleteCookie("firstname");
-      localStorage.clear();
+      // if first name empty but cookie has name, use cookie
+      if (!$("firstname").value) {
+        $("firstname").value = getCookie("firstname");
+      }
     }
+  }, 400);
 
-    alert("Saved.");
-  };
-
-  $("btnReset").onclick = function () {
-    localStorage.clear();
-  };
-});
+  // auto-save when fields change (only if Remember Me is checked)
+  ["firstname", "lastname", "email"].forEach(function (id) {
+    var el = $(id);
+    el.onblur = function () { saveAll(); };
+  });
+  $("sta
