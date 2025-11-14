@@ -1,140 +1,84 @@
 <!DOCTYPE html>
+<!--
+Program name: index.html (HW4)
+Author: Gabriela Cortes
+Date created: 11/13/2025
+Description: HW4 – Fetch, iFrame, Cookies, Local Storage
+-->
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>HW4 – Patient Registration</title>
   <link rel="stylesheet" href="style.css">
-
-  <script>
-    /* COOKIE UTILITIES */
-    function getCookie(name) {
-      let c = document.cookie.split(";");
-      for (let i=0; i<c.length; i++) {
-        let part = c[i].trim();
-        if (part.startsWith(name + "=")) {
-          return part.substring(name.length + 1);
-        }
-      }
-      return "";
-    }
-
-    function setCookie(name, value, hours) {
-      let expires = "";
-      if (hours) {
-        let d = new Date();
-        d.setTime(d.getTime() + (hours*60*60*1000));
-        expires = "; expires=" + d.toUTCString();
-      }
-      document.cookie = name + "=" + value + expires + "; path=/";
-    }
-
-    function deleteCookie(name) {
-      document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-    }
-
-    document.addEventListener("DOMContentLoaded", function () {
-      let savedName = getCookie("firstname");
-      let welcomeBox = document.getElementById("welcomeBox");
-
-      if (savedName !== "") {
-        welcomeBox.innerHTML = "Welcome back, " + savedName + "!";
-
-        let div = document.createElement("div");
-        div.style.marginTop = "6px";
-        div.innerHTML = `
-          <label><input type="checkbox" id="notMe"> Not ${savedName}? Start as new user</label>
-        `;
-        welcomeBox.appendChild(div);
-
-        document.getElementById("notMe").onchange = function () {
-          deleteCookie("firstname");
-          localStorage.clear();
-          location.reload();
-        };
-      } else {
-        welcomeBox.innerHTML = "Hello new user!";
-      }
-    });
-  </script>
-
 </head>
 
 <body>
 
-<!-- FIXED HEADER -->
-<div id="fixedHeader">
-  <img src="logo.png" width="50" style="vertical-align:middle;">
-  <span style="font-size:20px;"><b>Gaby Care Medical</b></span>
+  <!-- FIXED HEADER -->
+  <div id="fixedHeader">
+    <span class="logo-text"><b>Gaby Care Medical</b></span>
+    <div id="welcomeBox"></div>
+  </div>
 
-  <div id="welcomeBox" style="font-size:18px; margin-right:20px;"></div>
-</div>
+  <!-- spacer so content is not hidden under fixed header -->
+  <div class="spacer-header"></div>
 
-<div style="height:90px;"></div>
+  <!-- IFRAME SECTION -->
+  <div class="wrap">
+    <h3>Helpful Info (iFrame Example)</h3>
+    <iframe src="help.html"
+            width="100%" height="200"
+            style="border:1px solid #aaa; background:white;"></iframe>
+  </div>
 
-<!-- IFRAME SECTION -->
-<div class="wrap">
-  <h3>Helpful Info (iFrame Example)</h3>
-  <iframe src="help.html" width="100%" height="200" style="border:1px solid #aaa;"></iframe>
-</div>
+  <!-- MAIN FORM SECTION -->
+  <div class="wrap">
 
-<!-- FORM SECTION -->
-<div class="wrap">
+    <h2>Patient Registration Form</h2>
 
-  <h2>Patient Registration Form</h2>
+    <form id="signup" action="thankyou.html">
 
-  <label><input type="checkbox" id="rememberMe" checked> Remember Me</label>
+      <label class="remember-row">
+        <input type="checkbox" id="rememberMe" checked>
+        Remember Me
+      </label>
 
-  <form id="signup" action="thankyou.html">
+      <label for="firstname">First Name</label>
+      <input type="text" id="firstname" placeholder="Enter first name">
 
-    <table cellpadding="6">
+      <label for="lastname">Last Name</label>
+      <input type="text" id="lastname" placeholder="Enter last name">
 
-      <tr>
-        <td>First Name</td>
-        <td><input type="text" id="firstname"></td>
-      </tr>
+      <label for="email">Email</label>
+      <input type="email" id="email" placeholder="Enter your email">
 
-      <tr>
-        <td>Last Name</td>
-        <td><input type="text" id="lastname"></td>
-      </tr>
+      <label for="state">State</label>
+      <select id="state">
+        <option value="">Loading states...</option>
+      </select>
 
-      <tr>
-        <td>Email</td>
-        <td><input type="email" id="email"></td>
-      </tr>
+      <label>Conditions</label>
+      <div id="conditionsBox" class="conditions-box">
+        Loading conditions...
+      </div>
 
-      <tr>
-        <td>State</td>
-        <td>
-          <select id="state">
-            <option value="">Loading states...</option>
-          </select>
-        </td>
-      </tr>
+      <div class="button-row">
+        <button type="button" id="btnSave">Save</button>
+        <button type="reset" id="btnReset">Clear</button>
+        <button type="submit">Submit</button>
+      </div>
 
-      <tr>
-        <td>Conditions</td>
-        <td id="conditionsBox">Loading conditions...</td>
-      </tr>
+    </form>
+  </div>
 
-    </table>
+  <!-- spacer before footer -->
+  <div class="spacer-footer"></div>
 
-    <br>
-    <button type="button" id="btnSave">Save</button>
-    <button type="reset" id="btnReset">Clear</button>
-    <button type="submit">Submit</button>
+  <!-- FIXED FOOTER -->
+  <div id="fixedFooter">
+    © 2025 Gaby Care Medical – Homework 4
+  </div>
 
-  </form>
-</div>
-
-<div style="height:120px;"></div>
-
-<!-- FIXED FOOTER -->
-<div id="fixedFooter">
-  © 2025 Gaby Care Medical – Homework 4  
-</div>
-
-<script src="app.js"></script>
-
+  <script src="app.js"></script>
 </body>
 </html>
