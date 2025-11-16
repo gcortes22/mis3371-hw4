@@ -1,15 +1,34 @@
 <!DOCTYPE html>
-<html>
+<!--
+Program name: help.html
+Author: Gabriela Cortes
+Description: Simple info page loaded inside an iFrame on index.html
+-->
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Help</title>
+  <title>About this form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 8px;
+      font-size: 14px;
+    }
+    h3 { margin-top: 0; }
+  </style>
 </head>
-<body style="font-family:Arial; padding:20px;">
+<body>
   <h3>About this form</h3>
-  <p>This page is loaded inside an <b>iFrame</b> on the main homework site.</p>
-
+  <p>
+    This small page is loaded inside an <strong>iFrame</strong> on the main homework page.
+    It just shows some simple info and a useful link.
+  </p>
   <ul>
-    <li><a href="https://www.cdc.gov" target="_blank">Visit CDC (opens in new tab)</a></li>
+    <li>
+      <a href="https://www.cdc.gov" target="_blank" rel="noopener">
+        Visit CDC (opens in new tab)
+      </a>
+    </li>
   </ul>
 </body>
 </html>
