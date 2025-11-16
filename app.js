@@ -1,12 +1,11 @@
 /*
 Program name: app.js
 Author: Gabriela Cortes
-Original date: 10/21/2025 (HW3)
-Updated: 11/2025 (HW4)
+Date created: 11/13/2025
 Description: Validation + Fetch API + iFrame support + cookies + localStorage
 */
 
-// ------------- SHORTCUT + CONSTANTS -------------
+
 function $(id) {
   return document.getElementById(id);
 }
@@ -14,7 +13,7 @@ function $(id) {
 const LS_PREFIX = "gaby_hw4_";
 let cookieFirstName = "";
 
-// ------------- DATE DISPLAY -------------
+
 function showDate() {
   var d = new Date();
   var days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
@@ -27,7 +26,7 @@ function showDate() {
   }
 }
 
-// ------------- MESSAGE + BORDER HELPERS -------------
+
 function showMsg(id, text, ok) {
   var el = $(id);
   if (!el) return;
@@ -42,7 +41,7 @@ function mark(el, good) {
   if (good === false) el.classList.add("invalid");
 }
 
-// ------------- VALIDATION FUNCTIONS (HW3) -------------
+
 
 function valFirst() {
   var el = $("firstname");
@@ -103,7 +102,7 @@ function valMoveIn() {
   return ok;
 }
 
-// format + validate SSN
+
 function formatSSN() {
   var el = $("ssn");
   var v = el.value.replace(/[^0-9]/g, "");
@@ -233,7 +232,7 @@ function valPassword2() {
   return ok;
 }
 
-// ------------- VALIDATE ALL + REVIEW TABLE -------------
+
 
 function validateAll() {
   var ok = true;
@@ -285,7 +284,7 @@ function validateAll() {
   return ok;
 }
 
-// ------------- RESET FORM -------------
+
 
 function resetForm() {
   var msgs = document.getElementsByClassName("msg");
@@ -307,7 +306,7 @@ function resetForm() {
   if (rm) rm.checked = true;
 }
 
-// ------------- FETCH: STATES + CONDITIONS -------------
+
 
 async function loadStates() {
   var sel = $("state");
@@ -362,7 +361,7 @@ async function loadConditions() {
   }
 }
 
-// ------------- COOKIES: REMEMBER FIRST NAME -------------
+
 
 function setCookie(cname, cvalue, exDays) {
   const d = new Date();
@@ -389,7 +388,7 @@ function eraseCookie(cname) {
   document.cookie = cname + "=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/;";
 }
 
-// update header greeting
+
 function updateWelcomeFromCookie() {
   var welcomeEl = $("welcomeText");
   var wrapper = $("notYouWrapper");
@@ -409,7 +408,7 @@ function updateWelcomeFromCookie() {
   }
 }
 
-// called when we want to save first name to cookie
+
 function saveNameCookie() {
   var rm = $("rememberMe");
   if (!rm || !rm.checked) {
@@ -424,7 +423,7 @@ function saveNameCookie() {
   updateWelcomeFromCookie();
 }
 
-// ------------- LOCAL STORAGE -------------
+
 
 function clearLocalStorageData() {
   for (let i = localStorage.length - 1; i >= 0; i--) {
@@ -435,10 +434,10 @@ function clearLocalStorageData() {
   }
 }
 
-// Save all non-sensitive fields
+
 function saveAllToLocal() {
   var rm = $("rememberMe");
-  if (!rm || !rm.checked) return; // do not keep data if not remembering
+  if (!rm || !rm.checked) return; 
 
   var ids = [
     "firstname", "middleinit", "lastname",
@@ -471,7 +470,7 @@ function saveAllToLocal() {
   localStorage.setItem(LS_PREFIX + "conditions", JSON.stringify(conds));
 }
 
-// read from local storage back into the form (only when cookie matches)
+
 function loadFromLocal() {
   var rm = $("rememberMe");
   if (!rm || !rm.checked) return;
@@ -520,11 +519,11 @@ function loadFromLocal() {
     }
   }
 
-  // update salary output if we loaded salary
+  
   valSalary();
 }
 
-// ------------- "NOT YOU?" HANDLER -------------
+
 
 function handleNotYouClick(e) {
   e.preventDefault();
@@ -541,7 +540,7 @@ function handleNotYouClick(e) {
   if (notYou) notYou.checked = false;
 }
 
-// ------------- STARTUP -------------
+
 
 function start() {
   showDate();
@@ -549,18 +548,18 @@ function start() {
   loadConditions();
   updateWelcomeFromCookie();
 
-  // If we know this user, load their local storage data
+ 
   if (getCookie("patientName")) {
     loadFromLocal();
 
-    // ensure first name at least matches cookie
+    
     var fnameEl = $("firstname");
     if (fnameEl && !fnameEl.value.trim()) {
       fnameEl.value = getCookie("patientName");
     }
   }
 
-  // live validation & event wiring
+  
   $("firstname").oninput  = function(){ valFirst(); saveAllToLocal(); };
   $("middleinit").oninput = function(){ valMiddle(); saveAllToLocal(); };
   $("lastname").oninput   = function(){ valLast(); saveAllToLocal(); };
@@ -580,7 +579,7 @@ function start() {
   $("password").oninput   = function(){ valPassword(); valPassword2(); };
   $("password2").oninput  = valPassword2;
 
-  // housing / vaccinated / conditions -> save to local storage
+  // housing / vaccinated / conditions 
   document.querySelectorAll("input[name='housing']")
     .forEach(r => r.addEventListener("change", saveAllToLocal));
   document.querySelectorAll("input[name='vaccinated']")
@@ -608,7 +607,7 @@ function start() {
     };
   }
 
-  // Remember Me checkbox behavior
+  
   var rm = $("rememberMe");
   if (rm) {
     rm.addEventListener("change", function() {
@@ -625,13 +624,13 @@ function start() {
     });
   }
 
-  // "Not you?" checkbox
+  
   var notYou = $("notYouCheckbox");
   if (notYou) {
     notYou.addEventListener("change", handleNotYouClick);
   }
 
-  valSalary(); // initial slider output
+  valSalary(); 
 }
 
 document.addEventListener("DOMContentLoaded", start);
