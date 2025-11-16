@@ -6,6 +6,7 @@ California
 Colorado
 Connecticut
 Delaware
+District of Columbia
 Florida
 Georgia
 Hawaii
@@ -48,3 +49,4 @@ Washington
 West Virginia
 Wisconsin
 Wyoming
+Puerto Rico
