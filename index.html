@@ -2,171 +2,274 @@
 <!--
 Program name: index.html (HW4)
 Author: Gabriela Cortes
-Date created: 11/13/2025
-Description: HW4 – Fetch, Cookies, Local Storage, iFrame
+Date created: 11/2025
+Description: HW4 – builds on HW3 with Fetch, iFrame, fixed header/footer, cookies, and localStorage
 -->
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>HW4 – Patient Registration</title>
+  <title>Patient Registration – HW4</title>
   <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
+  <!-- FIXED HEADER -->
+  <div id="header">
+    <table width="100%">
+      <tr>
+        <td>
+          <img src="logo.png" alt="Logo" width="60" height="60" style="vertical-align:middle">
+          <b style="margin-left:8px;">Gaby Care Medical</b>
+        </td>
+        <td align="right">
+          <div>Today is: <span id="today"></span></div>
+          <div id="welcomeText">Hello new user</div>
+          <label id="notYouWrapper" style="display:none; font-size:12px;">
+            <input type="checkbox" id="notYouCheckbox">
+            Not <span id="cookieName"></span>? Click here to start as a new user.
+          </label>
+        </td>
+      </tr>
+    </table>
+  </div>
 
-<!-- FIXED HEADER -->
-<div id="fixedHeader">
-  <span class="logo-text"><b>Gaby Care Medical</b></span>
-  <div id="welcomeBox"></div>
-</div>
+  <!-- space so content isn't under fixed header -->
+  <div class="spacer-header"></div>
 
-<div class="spacer-header"></div>
+  <!-- IFRAME SECTION -->
+  <div class="wrap info-wrap">
+    <div class="panel">
+      <h3>Helpful Info (iFrame Example)</h3>
+      <iframe
+        src="help.html"
+        class="info-frame"
+        title="Helpful information about this form">
+      </iframe>
+    </div>
+  </div>
 
-<!-- IFRAME SECTION -->
-<div class="wrap">
-  <h3>Helpful Info (iFrame Example)</h3>
-  <iframe src="help.html" width="100%" height="200"
-          style="border:1px solid #ccc; background:white;"></iframe>
-</div>
+  <!-- MAIN FORM + REVIEW (HW3 layout kept) -->
+  <div class="wrap main-wrap">
 
-<!-- MAIN FORM -->
-<div class="wrap">
-  <h2>Patient Registration Form</h2>
+    <!-- FORM COLUMN -->
+    <form id="signup" action="thankyou.html">
+      <table border="0" cellpadding="6">
+        <tr><th colspan="6">Patient Registration Form</th></tr>
 
-  <form id="signup" action="thankyou.html">
+        <!-- Remember Me -->
+        <tr>
+          <td colspan="6">
+            <label>
+              <input type="checkbox" id="rememberMe" checked>
+              Remember Me
+            </label>
+          </td>
+        </tr>
 
-    <label>
-      <input type="checkbox" id="rememberMe" checked> Remember Me
-    </label>
-    <br><br>
+        <!-- Names -->
+        <tr>
+          <td>First Name</td>
+          <td>
+            <input type="text" id="firstname" required maxlength="30"
+                   pattern="[A-Za-z\-']{1,30}" title="1–30 letters, apostrophes, or dashes only">
+            <small class="msg" id="err-firstname"></small>
+          </td>
 
-    <!-- ROW 1 -->
-    <div class="form-row">
-      <div class="form-col">
-        <label>First Name</label>
-        <input type="text" id="firstname" placeholder="Enter first name">
-      </div>
+          <td>Middle Initial</td>
+          <td>
+            <input type="text" id="middleinit" maxlength="1"
+                   pattern="[A-Za-z]?" title="Optional: 1 letter A–Z">
+            <small class="msg" id="err-middleinit"></small>
+          </td>
 
-      <div class="form-col">
-        <label>Middle Initial</label>
-        <input type="text" id="middle" maxlength="1">
-      </div>
+          <td>Last Name</td>
+          <td>
+            <input type="text" id="lastname" required maxlength="30"
+                   pattern="[A-Za-z\-']{1,30}" title="1–30 letters, apostrophes, or dashes only">
+            <small class="msg" id="err-lastname"></small>
+          </td>
+        </tr>
 
-      <div class="form-col">
-        <label>Last Name</label>
-        <input type="text" id="lastname" placeholder="Enter last name">
+        <!-- Dates -->
+        <tr>
+          <td>Date of Birth</td>
+          <td>
+            <input type="date" id="dob" required title="Not future and not older than 120 years">
+            <small class="msg" id="err-dob"></small>
+          </td>
+
+          <td>Move-in / Travel Date</td>
+          <td>
+            <input type="date" id="movein" title="Cannot be in the past">
+            <small class="msg" id="err-movein"></small>
+          </td>
+
+          <td>SSN / ID (hidden)</td>
+          <td>
+            <input type="password" id="ssn" placeholder="123-45-6789" title="9 digits with dashes">
+            <small class="msg" id="err-ssn"></small>
+          </td>
+        </tr>
+
+        <!-- Contact -->
+        <tr>
+          <td>Email</td>
+          <td>
+            <input type="email" id="email" required maxlength="40" title="name@domain.tld">
+            <small class="msg" id="err-email"></small>
+          </td>
+
+          <td>Phone</td>
+          <td colspan="3">
+            <input type="text" id="phone" maxlength="12" placeholder="000-000-0000" title="Use 000-000-0000">
+            <small class="msg" id="err-phone"></small>
+          </td>
+        </tr>
+
+        <!-- Address -->
+        <tr>
+          <td>Address 1</td>
+          <td colspan="5">
+            <input type="text" id="addr1" required maxlength="30" title="2–30 characters">
+            <small class="msg" id="err-addr1"></small>
+          </td>
+        </tr>
+
+        <tr>
+          <td>Address 2</td>
+          <td colspan="5">
+            <input type="text" id="addr2" maxlength="30" title="Optional; 2–30 characters">
+            <small class="msg" id="err-addr2"></small>
+          </td>
+        </tr>
+
+        <tr>
+          <td>City</td>
+          <td>
+            <input type="text" id="city" required maxlength="30" title="2–30 characters">
+            <small class="msg" id="err-city"></small>
+          </td>
+
+          <td>State</td>
+          <td>
+            <!-- options filled via Fetch from states.txt -->
+            <select id="state" required title="Choose a state">
+              <option value="">Loading states...</option>
+            </select>
+            <small class="msg" id="err-state"></small>
+          </td>
+
+          <td>Zip</td>
+          <td>
+            <input type="text" id="zip" required maxlength="5" placeholder="12345"
+                   pattern="\d{5}" title="5 digits only">
+            <small class="msg" id="err-zip"></small>
+          </td>
+        </tr>
+
+        <!-- Conditions (built via Fetch from conditions.txt) -->
+        <tr>
+          <td>Conditions</td>
+          <td colspan="5" id="conditionsCell">
+            Loading conditions...
+          </td>
+        </tr>
+
+        <tr>
+          <td>Housing</td>
+          <td colspan="5">
+            <label><input type="radio" name="housing" value="Own"> Own</label>
+            <label><input type="radio" name="housing" value="Rent"> Rent</label>
+            <label><input type="radio" name="housing" value="Unsure"> Unsure</label>
+          </td>
+        </tr>
+
+        <tr>
+          <td>Vaccinated?</td>
+          <td colspan="5">
+            <label><input type="radio" name="vaccinated" value="Yes"> Yes</label>
+            <label><input type="radio" name="vaccinated" value="No"> No</label>
+            <label><input type="radio" name="vaccinated" value="Unsure"> Unsure</label>
+          </td>
+        </tr>
+
+        <!-- Slider -->
+        <tr>
+          <td>Desired Salary</td>
+          <td colspan="5">
+            <input type="range" id="salary" min="20000" max="200000" step="1000" value="50000">
+            <output id="salaryOut">$50,000</output>
+            <small class="msg" id="err-salary"></small>
+          </td>
+        </tr>
+
+        <!-- Textarea -->
+        <tr>
+          <td>Symptoms</td>
+          <td colspan="5">
+            <textarea id="symptoms" rows="3" cols="50"
+                      title='Avoid double quotes (")'
+                      placeholder="Describe your symptoms (no quotes)…"></textarea>
+            <small class="msg" id="err-symptoms"></small>
+          </td>
+        </tr>
+
+        <!-- Login Info -->
+        <tr>
+          <td>User ID</td>
+          <td>
+            <input type="text" id="userid" required maxlength="20"
+                   pattern="^[A-Za-z_][A-Za-z0-9_-]{4,19}$"
+                   title="5–20 characters; letters/numbers/_/-; cannot start with a number">
+            <small class="msg" id="err-userid"></small>
+          </td>
+
+          <td>Password</td>
+          <td>
+            <input type="password" id="password" required maxlength="30"
+                   title="8+ chars, must have upper/lower/digit, not equal to user ID.">
+            <small class="msg" id="err-password"></small>
+          </td>
+
+          <td>Re-enter</td>
+          <td>
+            <input type="password" id="password2" required maxlength="30" title="Must match password">
+            <small class="msg" id="err-password2"></small>
+          </td>
+        </tr>
+
+        <!-- Buttons -->
+        <tr>
+          <td colspan="6" align="center">
+            <input type="reset" value="Start Over" id="btnReset">
+            <button type="button" id="btnValidate">Validate</button>
+            <button type="submit" id="btnRealSubmit" style="display:none;">Submit</button>
+          </td>
+        </tr>
+      </table>
+    </form>
+
+    <!-- REVIEW COLUMN -->
+    <div id="review">
+      <h3>Review Results</h3>
+      <div id="reviewBody">
+        <p class="muted">
+          After I click <b>Validate</b> it will show pass/error here for testing.
+        </p>
       </div>
     </div>
+  </div>
 
-    <!-- ROW 2 -->
-    <div class="form-row">
-      <div class="form-col">
-        <label>Date of Birth</label>
-        <input type="date" id="dob">
-      </div>
+  <!-- space so content isn't hidden behind fixed footer -->
+  <div class="spacer-footer"></div>
 
-      <div class="form-col">
-        <label>Move-in / Travel Date</label>
-        <input type="date" id="travel">
-      </div>
+  <!-- FIXED FOOTER -->
+  <div id="footer">
+    <a href="mailto:info@gabycare" title="Email us">Contact Us</a>
+    &nbsp; | &nbsp;
+    © 2025 Gaby Care Medical – Homework 4
+  </div>
 
-      <div class="form-col">
-        <label>SSN / ID (hidden)</label>
-        <input type="password" id="ssn" placeholder="123-45-6789">
-      </div>
-    </div>
-
-    <!-- ROW 3 -->
-    <div class="form-row">
-      <div class="form-col">
-        <label>Email</label>
-        <input type="email" id="email" placeholder="Enter your email">
-      </div>
-
-      <div class="form-col">
-        <label>Phone</label>
-        <input type="text" id="phone" placeholder="000-000-0000">
-      </div>
-    </div>
-
-    <!-- ROW 4 -->
-    <div class="form-row">
-      <div class="form-col">
-        <label>Address 1</label>
-        <input type="text" id="addr1">
-      </div>
-
-      <div class="form-col">
-        <label>Address 2</label>
-        <input type="text" id="addr2">
-      </div>
-    </div>
-
-    <!-- ROW 5 -->
-    <div class="form-row">
-      <div class="form-col">
-        <label>City</label>
-        <input type="text" id="city">
-      </div>
-
-      <div class="form-col">
-        <label>State</label>
-        <select id="state"><option>Loading states...</option></select>
-      </div>
-
-      <div class="form-col">
-        <label>Zip</label>
-        <input type="text" id="zip" maxlength="5">
-      </div>
-    </div>
-
-    <!-- CONDITIONS FETCHED -->
-    <label><b>Conditions</b></label>
-    <div id="conditionsBox" class="conditions-box">Loading conditions...</div>
-
-    <!-- HOUSING -->
-    <label><b>Housing</b></label>
-    <div class="radio-row">
-      <label><input type="radio" name="housing" value="Own"> Own</label>
-      <label><input type="radio" name="housing" value="Rent"> Rent</label>
-      <label><input type="radio" name="housing" value="Unsure"> Unsure</label>
-    </div>
-
-    <!-- VACCINATED -->
-    <label><b>Vaccinated?</b></label>
-    <div class="radio-row">
-      <label><input type="radio" name="vacc" value="Yes"> Yes</label>
-      <label><input type="radio" name="vacc" value="No"> No</label>
-      <label><input type="radio" name="vacc" value="Unsure"> Unsure</label>
-    </div>
-
-    <!-- SALARY -->
-    <label><b>Desired Salary</b></label>
-    <input type="range" id="salary" min="30000" max="200000" step="1000">
-    <span id="salaryOut">$50,000</span>
-
-    <!-- SYMPTOMS -->
-    <label><b>Symptoms</b></label>
-    <textarea id="symptoms" placeholder="Describe symptoms (no quotes)…"></textarea>
-
-    <!-- BUTTONS -->
-    <div class="button-row">
-      <button type="button" id="btnSave">Save</button>
-      <button type="reset" id="btnReset">Clear</button>
-      <button type="submit">Submit</button>
-    </div>
-
-  </form>
-</div>
-
-<div class="spacer-footer"></div>
-
-<!-- FIXED FOOTER -->
-<div id="fixedFooter">
-  © 2025 Gaby Care Medical – Homework 4
-</div>
-
-<script src="app.js"></script>
-
+  <script src="app.js"></script>
 </body>
 </html>
+
