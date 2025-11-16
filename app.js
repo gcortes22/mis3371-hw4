@@ -600,7 +600,7 @@ function start() {
         e.preventDefault();
         alert("Please fix errors and click Validate again.");
       } else {
-        // final save before going to thank-you page
+        
         saveNameCookie();
         saveAllToLocal();
       }
@@ -612,12 +612,12 @@ function start() {
   if (rm) {
     rm.addEventListener("change", function() {
       if (!rm.checked) {
-        // user does NOT want to be remembered
+        
         eraseCookie("patientName");
         clearLocalStorageData();
         updateWelcomeFromCookie();
       } else {
-        // user turned it back on: save data again if we have name
+        
         saveNameCookie();
         saveAllToLocal();
       }
